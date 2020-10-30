@@ -15,12 +15,12 @@ t3 = ascii.read('data/brite/betaPic-BRITE-R-2017-18.dat')
 print(t1['col1'])
 t_b = vstack([t1,t2,t3])
 
+# convert to MJD
+time = t_b['col1'] + 2456000.0 - 2400000.5
 
-time = t_b['col1'] + 56000.
-
-# I am guessing that the second column is in millimagnitudes
+# the second column is in millimagnitudes
+# convert to normalised flux - 1
 f1 = np.power(10.,( ((t_b['col2']/1000.)/-2.5))) - 1.
-
 
 t = Table([time, f1], names=('time','flux'))
 

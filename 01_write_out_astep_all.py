@@ -16,9 +16,6 @@ astep18flux = (data_astep18['FLUX1']-4*data_astep18['FSKY1'])/(data_astep18['FLU
 astep17nflux = astep17flux/np.nanmedian(astep17flux)-1
 astep18nflux = astep18flux/np.nanmedian(astep18flux)-1
 
-x_astep = data_astep17['BJD']
-y_astep = astep17nflux
-
 x_astep_all = np.append(data_astep17['BJD'], data_astep18['BJD'])
 y_astep_all = np.append(astep17nflux, astep18nflux)
 
