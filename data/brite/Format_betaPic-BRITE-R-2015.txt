@@ -1,0 +1,5 @@
+Format is:
+1st column: HJD (for mid-exposure) - 2456000.0
+2nd column: decorrelated BRITE magnitude (instrumental)
+
+Data sets as described in Zwintz et al. (2019, accepted; arXiv 1905.12545).
