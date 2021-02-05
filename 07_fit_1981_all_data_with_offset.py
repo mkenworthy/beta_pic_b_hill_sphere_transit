@@ -14,7 +14,6 @@ import datetime
 runtime = os.path.abspath((sys.argv[0])) + " run at " + datetime.datetime.now().strftime("%c")
 tyb = dict(color='black', fontsize=8)
 
-
 # choose epochs where to fit the 1981 function
 
 step = 1.0
@@ -26,8 +25,10 @@ f_brite = Table.read('binned_flux_brite.dat', format='ascii.ecsv')
 f_astep = Table.read('binned_flux_astep.dat', format='ascii.ecsv')
 f_bring = Table.read('binned_flux_bring.dat', format='ascii.ecsv')
 
+# fwhm = 3.2 days is estimated from Lamers 1997 A&A 328 321 page 8 Figure 7
+fwhm_lamers = 3.2
 
-def m1981(t, t0, peak, bgnd, fwhm=4, inner_width=0.25, depth=-0.009):
+def m1981(t, t0, peak, bgnd, fwhm=fwhm_lamers, inner_width=0.25, depth=-0.009):
     """m1981 - a model for the 1981 event
     modelled with two components:
     1. a gaussian function with amplitude of `peak` and FWHM of `fwhm`
@@ -112,7 +113,7 @@ ax1.set_xlim(t_mid-dt, t_mid+dt)
 
 t = np.arange(t_mid-dt, t_mid+dt, 0.05)
 
-ax1.plot(t, m1981(t, t_mid, -V_1981_peak, V_mag_background, fwhm=3, depth=0.009)) # 3.842
+ax1.plot(t, m1981(t, t_mid, -V_1981_peak, V_mag_background, fwhm=fwhm_lamers, depth=0.009)) # 3.842
 
 #### ax1.text(0.98, 0.95, runtime, ha='right', va='bottom', transform=ax1.transAxes, **tyb)
 
@@ -123,11 +124,13 @@ print('finished writing out m1981model.pdf, now doing the modeling')
 
 # make artificial time series
 
+sim_t0, sim_a, sim_bgnd = (1050, 0.03, 0.02)
+print('simulation values are t0={}, a={}, bgnd={}'.format(sim_t0, sim_a, sim_bgnd))
 err_sim = 0.02
 t_sim = np.linspace(1030, 1070, 1000)
 f_sim = np.random.standard_normal(t_sim.size)*err_sim
 e_sim = np.ones_like(f_sim) * err_sim
-d_sim = f_sim + m1981(t_sim, 1050, 0.03, 0.02)
+d_sim = f_sim + m1981(t_sim, sim_t0, sim_a, sim_bgnd)
 
 
 fig3 = plt.figure(figsize=(10,6))
@@ -145,8 +148,8 @@ ax3.text(0.98, 0.95, runtime, ha='right', va='bottom', transform=ax3.transAxes, 
 from scipy.optimize import curve_fit
 init_vals = [1050, 0.03, 0.00]
 best_vals, covar = curve_fit(m1981, t_sim, d_sim, p0=init_vals)
-
-print('best_vals: {}'.format(best_vals))
+print('initial values into curve_fit are: {}'.format(init_vals))
+print('curve_fit finds that the best fit after converging is best_vals: {}'.format(best_vals))
 
 from lmfit import Model
 gmodel = Model(m1981, param_names=('t0','peak', 'bgnd'))
@@ -154,16 +157,20 @@ print('parameter names: {}'.format(gmodel.param_names))
 print('independent variables: {}'.format(gmodel.independent_vars))
 
 
+
 params = gmodel.make_params(t0=1050, peak=0.1, bgnd=0.00)
 
-result = gmodel.fit(d_sim, t=t_sim, t0=1050, bgnd=0.0, peak=0.1, fwhm=4, inner_width=0.25, depth=-0.009)
+#result = gmodel.fit(d_sim, t=t_sim, t0=1050, bgnd=0.0, peak=0.1, fwhm=4, inner_width=0.25, depth=-0.009)
+result = gmodel.fit(d_sim, t=t_sim, t0=1050, bgnd=0.0, peak=0.1)
 
 print(result.fit_report())
+
 ax3.plot(t_sim, result.best_fit, 'y-', label='best fit')
 
 plt.draw()
+plt.show()
 
-def fit_1981(t, f, ferr, t_test_epochs, t_window=8.0, min_npoints=9):
+def fit_1981(t, f, ferr, t_test_epochs, t_window=8.0, min_npoints=15):
     import numpy as np
     import numpy.ma as ma
     # t_window - half width of fitting window
@@ -196,7 +203,7 @@ def fit_1981(t, f, ferr, t_test_epochs, t_window=8.0, min_npoints=9):
         #for pname, par in gmodel.param_hints.items():
         #    print(pname, par)
 
-        result = gmodel.fit(d_sel, t=t_sel, bgnd=0.0, t0=t_now, peak=0.1, fwhm=4, inner_width=0.25, depth=-0.009)
+        result = gmodel.fit(d_sel, t=t_sel, bgnd=0.0, t0=t_now, peak=0.1)
         
         if result.success:
 #            print('succeeded')
