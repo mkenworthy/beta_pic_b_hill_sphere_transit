@@ -14,8 +14,6 @@ tyb = dict(color='black', fontsize=8)
 # if you do hit that radius, you then split the photometry into 'yes we hit it' and 'no we don't'.
 
 # then fit for the flux change between in eclipse and out of eclipse, come up with upper limit on tau.
-#
-#
 # the graph is then a grid of points of tip and tilt, with upper limits on the mass of the disk in that configuration for a given radius of the disk.
 
 t_mid = 58009. * u.day # time when star has closest approach to planet
@@ -29,13 +27,11 @@ f_hill = 0.40 # radius of disk in fraction of hill sphere
 r_disk = r_hill * f_hill # radius of disk
 print('Disk radius {}'.format(r_disk))
 
-angle_i = 20 # inclination of the disk in degrees
-
-angle_phi = 50 # tilt of the disk in degrees
+angle_i   = 20   # inclination of the disk in degrees
+angle_phi = 50   # tilt of the disk in degrees
 
 impact_b = 0.2 * r_hill # impact parameter of the star
 print('Impact parameter distance {}'.format(impact_b))
-
 
 def ringedge(radius, i_deg, phi_deg, npoints=201):
     'returns evenly spaced points around a ring in the sky coordinates'
@@ -74,7 +70,6 @@ f[indisk] = f[indisk] - taudisk
 
 fig1, (ax1, ax2) = plt.subplots(2,1,figsize=(8,9), constrained_layout=False, sharex=True,gridspec_kw={'hspace': 0.01, 'height_ratios': [3,1]})
 
-
 ax1.set_aspect('equal')
 # move label from bottom of ax1 to top
 # tie x axes together
@@ -99,11 +94,6 @@ ax1.axvline(0.0,  color='black')
 ax1.axhline(impact_b.value, color='green')
 
 ax1.set_xlabel('distance [au]')
-#ax1.xaxis.set_ticks_position('both')
-#ax1.yaxis.set_ticks_position('both')
-#ax1.xaxis.set_label_position('top')
-#ax1.set_xticklabels([-0.1,0,0.1])
-
 ax1.set_ylabel('distance [au]')
 
 # plot the photometry
@@ -112,7 +102,6 @@ ax2.set_ylabel('normalised flux')
 ax2.scatter(x_coord, f, color='k')
 ax1.text(0.98, 0.95, runtime, ha='right', va='bottom', transform=ax1.transAxes, **tyb)
 
-
 ([x0a0,y0a0],[x1a0,y1a0]) = ax1.get_position().get_points()
 ([x0a1,y0a1],[x1a1,y1a1]) = ax2.get_position().get_points()
 from matplotlib.transforms import Bbox
@@ -120,7 +109,7 @@ from matplotlib.transforms import Bbox
 ax2.set_position(Bbox.from_extents([x0a0,y0a1],[x1a0,y1a1]))
 
 plt.draw()
-plt.savefig('simdisk_a.pdf')
+###plt.savefig('simdisk_a.pdf')
 
 def disk_mass(r_disk, tau, mean_a=0.5*u.micron, mean_rho=2.5*u.g/(u.cm*u.cm*u.cm)):
     'simple mass for a face-on circular optically thin disk'
@@ -150,8 +139,11 @@ print('independent variables: {}'.format(gmodel.independent_vars))
 
 params = gmodel.make_params(deltadisk=0.0, foutside=1.0, xlower=1.8, xupper=3.4)
 
-n_i = 55
+n_i =   55
 n_phi = 129
+
+###n_i= 5
+###n_phi = 11
 
 i_range = np.linspace(10, 90, n_i)
 phi_range = np.linspace(0, 180, n_phi)
@@ -201,7 +193,14 @@ tau = deltaf/fout
 
 tau_err = np.power(np.power((deltaf_err/deltaf),2.)+np.power((fout_err/fout),2),0.5)*tau
 
-fig2, f2_axes = plt.subplots(3,1,figsize=(6,12), constrained_layout=False)
+
+
+### simdisk_b
+
+fig2, f2_axes = plt.subplots(3,1,
+                             figsize=(6,10),
+                             constrained_layout=False
+                             )
 (ax1,ax2,ax3) = f2_axes.flatten()
 
 # sets the extent=() limits in imshow() so that the centre of each pixel corresponds to i and phi value
@@ -213,21 +212,34 @@ phi_min = phi_range.min()
 phi_max = phi_range.max()
 dphi = 0.5*((phi_max-phi_min)/(phi_range.size-1))
 
+im1 = ax1.imshow(deltaf,
+                 extent=(phi_min-dphi,phi_max+dphi,i_min-di,i_max+di),
+                 cmap=plt.cm.get_cmap('Blues', 20),
+                 vmin=0,
+                 vmax=taudisk*1.2,
+                 origin='lower')
 
-im1 = ax1.imshow(deltaf,        extent=(phi_min-dphi,phi_max+dphi,i_min-di,i_max+di),cmap=plt.cm.get_cmap('Blues', 20), vmin=0, vmax=taudisk*1.2, origin='lower')
-im2 = ax2.imshow(redchisq,   extent=(phi_min-dphi,phi_max+dphi,i_min-di,i_max+di),cmap=plt.cm.get_cmap('Blues', 20), origin='lower')
-im3 = ax3.imshow(deltaf/deltaf_err,   extent=(phi_min-dphi,phi_max+dphi,i_min-di,i_max+di),cmap=plt.cm.get_cmap('Blues', 20), origin='lower')
+im2 = ax2.imshow(redchisq,
+                 extent=(phi_min-dphi,phi_max+dphi,i_min-di,i_max+di),
+                 cmap=plt.cm.get_cmap('Blues', 20),
+                 origin='lower')
+
+im3 = ax3.imshow(deltaf/deltaf_err,
+                 extent=(phi_min-dphi,phi_max+dphi,i_min-di,i_max+di),
+                 cmap=plt.cm.get_cmap('Blues', 20),
+                 origin='lower')
 
 fig2.colorbar(im1, ax=ax1)
 fig2.colorbar(im2, ax=ax2)
 fig2.colorbar(im3, ax=ax3)
 
-ax1.set_title(r'$\tau\ \sin\ \theta$')
-ax2.set_title(r'$\chi^2_r$')
-ax3.set_title(r'Signal to noise of $\tau\ \sin\ \theta$')
-
-
-###ax1.text(0.98, 0.95, runtime, ha='right', va='bottom', transform=ax1.transAxes, **tyb)
+f = 16
+ax1.set_title(r'$\tau\ \sin\ \theta$',
+              fontsize=f)
+ax2.set_title(r'$\chi^2_r$',
+              fontsize=f)
+ax3.set_title(r'Signal to noise of $\tau\ \sin\ \theta$',
+              fontsize=f)
 
 for a in f2_axes.flatten():
     a.xaxis.set_major_locator(MultipleLocator(30))
@@ -241,12 +253,19 @@ for a in f2_axes.flatten():
 
     a.set_xlim(-10,190)
     a.set_ylim(-10,100)
-    a.set_xlabel(r'Tilt $\phi$ [deg]')
-    a.set_ylabel(r'Inclination $ \theta $ [deg]')
     a.scatter(angle_phi, angle_i, color='red')
 
+aa = fig2.add_subplot(111, frameon=False)
+# hide tick and tick label of the big axes
+plt.tick_params(labelcolor='none', top=False, bottom=False, left=False, right=False)
+plt.grid(False)
+plt.xlabel("Tilt $\phi$ [deg]", fontsize=16)
 
+aa.xaxis.set_label_coords(0.4, -0.04)
+
+plt.ylabel(r'Inclination $ \theta $ [deg]', fontsize=16)
+aa.yaxis.set_label_coords(-0.08, 0.5)
     
-plt.savefig('simdisk_b.pdf')
+plt.savefig('figs/simdisk_b.pdf', bbox_inches='tight')
 
 plt.show()

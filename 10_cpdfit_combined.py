@@ -3,7 +3,6 @@ import matplotlib.pyplot as plt
 import betapic as bp
 from astropy.table import Table
 
-
 import os, sys
 import datetime
 runtime = os.path.abspath((sys.argv[0])) + " run at " + datetime.datetime.now().strftime("%c")
@@ -32,7 +31,6 @@ f_bring = Table.read('binned_flux_bring.dat', format='ascii.ecsv')
 # remove any anomalously low error bars from the BRING data and set them with 1% errors
 m=(f_bring['ferr']<0.002)
 f_bring['ferr'][m] = 0.01
-
 
 # calculate Hill sphere for beta pic b
 r_hill = rhill(bp.M_star, bp.M_b, bp.a_b).to(u.au) # radius of hill sphere
@@ -143,8 +141,6 @@ x_coord = xp(f_astep['time'] * u.day)
 ferr = f_astep['ferr']
 (astep_disk) = fitdisk(x_coord, f, ferr, i_range, phi_range, r_disk, gmodel, params)
 
-
-
 def plot_diskfit2(d, dataname, i_range, phi_range):
     'plots disk fit results in 2 panels, requires a dict from the disk fitting routine'
     fig2, f2_axes = plt.subplots(2, 1, figsize=(7,8), constrained_layout=False)
@@ -159,14 +155,27 @@ def plot_diskfit2(d, dataname, i_range, phi_range):
     phi_max = phi_range.max()
     dphi = 0.5*((phi_max-phi_min)/(phi_range.size-1))
 
-    im1 = ax1.imshow(d['tau'],          extent=(phi_min-dphi,phi_max+dphi,i_min-di,i_max+di),cmap=plt.cm.get_cmap('viridis', 11), origin='lower')
-    im2 = ax2.imshow(d['tau']/d['taue'],    extent=(phi_min-dphi,phi_max+dphi,i_min-di,i_max+di), origin='lower',cmap=plt.cm.get_cmap('viridis', 11))
+    im1 = ax1.imshow(d['tau'],
+                     extent=(phi_min-dphi,phi_max+dphi,i_min-di,i_max+di),
+                     cmap=plt.cm.get_cmap('viridis', 11),
+                     origin='lower'
+                     )
+    
+    im2 = ax2.imshow(d['tau']/d['taue'],
+                     extent=(phi_min-dphi,phi_max+dphi,i_min-di,i_max+di),
+                     origin='lower',
+                     cmap=plt.cm.get_cmap('viridis', 11)
+                     )
 
     fig2.colorbar(im1, ax=ax1)
     fig2.colorbar(im2, ax=ax2)
 
-    ax1.set_title(r'$\tau\ \sin\ \theta $')
-    ax2.set_title(r'Signal to noise of $\tau\ \sin\ \theta$')
+    ax1.set_title(r'$\tau\ \sin\ \theta $',
+                  fontsize=14
+                  )
+    ax2.set_title(r'Signal to noise of $\tau\ \sin\ \theta$',
+                  fontsize=14
+                  )
     
     tyb = dict(color='black', fontsize=16)
     ax1.text(0.05, 0.05, dataname, ha='left', va='bottom', transform=ax1.transAxes, **tyb)
@@ -184,14 +193,19 @@ def plot_diskfit2(d, dataname, i_range, phi_range):
 
         a.set_xlim(-10,190)
         a.set_ylim(-10,100)
-        a.set_xlabel(r'Tilt $\phi$ [deg]')
-        a.set_ylabel(r'Inclination $\theta$ [deg]')
-        #a.scatter(angle_phi, angle_i, color='red')
 
+        a.set_xlabel(r'Tilt $\phi$ [deg]',
+                     fontsize=14
+                     )
+        
+        a.set_ylabel(r'Inclination $\theta$ [deg]',
+                     fontsize=14
+                     )
+        #a.scatter(angle_phi, angle_i, color='red')
 
     plt.tight_layout()
     plt.draw()
-    plotout = ('diskfit_{}_{:03d}.pdf'.format(dataname, np.int(f_hill*100)))
+    plotout = ('figs/diskfit_{}_{:03d}.pdf'.format(dataname, np.int(f_hill*100)))
     plt.savefig(plotout)
 
 
@@ -219,6 +233,7 @@ def disk_mass(r_disk, tau, mean_a=0.5*u.micron, mean_rho=2.5*u.g/(u.cm*u.cm*u.cm
     return Mdisk.to(u.g)
 
 mean_a = 30. * np.sqrt(f_hill) *u.micron # from Grant Kennedy, in Section 4
+
 print('mean a for the particle size is {:.1e}'.format(mean_a))
 print('estimated thin disk mass: {:.1e}'.format(disk_mass(1*u.au, 1e-3, mean_a = mean_a)))
 
@@ -268,18 +283,19 @@ def plot_disktaumass(tau, i_range, phi_range):
 
         a.set_xlim(-10,190)
         a.set_ylim(-10,100)
-        a.set_xlabel(r'Tilt $\phi$ [deg]')
-        a.set_ylabel(r'Inclination $ \theta $ [deg]')
+        a.set_xlabel(r'Tilt $\phi$ [deg]',
+                     fontsize=14)
+        a.set_ylabel(r'Inclination $ \theta $ [deg]',
+                     fontsize=14)
         #a.scatter(angle_phi, angle_i, color='red')
 
 
     plt.tight_layout()
 
     plt.draw()
-    plotout = ('diskfit_taumass_{:03d}.pdf'.format(np.int(f_hill*100)))
+    plotout = ('figs/diskfit_taumass_{:03d}.pdf'.format(np.int(f_hill*100)))
     plt.savefig(plotout)
 
 plot_disktaumass(upper_tau_max, i_range, phi_range)
-
 
 plt.show()

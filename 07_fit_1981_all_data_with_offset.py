@@ -14,24 +14,42 @@ import datetime
 runtime = os.path.abspath((sys.argv[0])) + " run at " + datetime.datetime.now().strftime("%c")
 tyb = dict(color='black', fontsize=8)
 
+
+# choose epochs where to fit the 1981 function
+
 step = 1.0
 t_in = np.arange(57800, 58200, step)
 
-# loop through orbits, fit radius versus transmission
+# read in data
 
 f_brite = Table.read('binned_flux_brite.dat', format='ascii.ecsv')
 f_astep = Table.read('binned_flux_astep.dat', format='ascii.ecsv')
 f_bring = Table.read('binned_flux_bring.dat', format='ascii.ecsv')
 
-d = 19.454 # distance in pc # gaia DR2
 
 def m1981(t, t0, peak, bgnd, fwhm=4, inner_width=0.25, depth=-0.009):
-    't is array of time points, t0 the midpoint of the peak, fwhm'
+    """m1981 - a model for the 1981 event
+    modelled with two components:
+    1. a gaussian function with amplitude of `peak` and FWHM of `fwhm`
+    2. narrow triangular absorption trough at the midpoint
+
+    t - sampling points for the function
+    t0 - the epoch of the central peak
+    peak - amplitude of the central peak
+    bgnd - the background flux level
+    fwhm - full width half max of the gaussian curve
+    inner_width - width of the narrow eclipser
+    depth - relative depth of the narrow eclipser"""
+
     dt = (t-t0)
+
+    # make the gaussian function
     
     # FWHM = 2.sqrt(2 ln 2)sig
     sig = fwhm / 2.355
     di = peak*np.exp(-dt*dt/(2*sig*sig))
+
+    # mask central peak and replace with narrow eclipser
     mask = np.abs(dt)<inner_width
     di_edge = peak*np.exp(-inner_width*inner_width/(2*sig*sig))
     # y = mx + c
@@ -43,7 +61,6 @@ def m1981(t, t0, peak, bgnd, fwhm=4, inner_width=0.25, depth=-0.009):
 
     di = di + bgnd
     return(di)
-
 
 # Lecavelier des Etangs photometry
 
@@ -86,8 +103,8 @@ V_1981_peak      = 0.034 # Amplitude of the broad peak model from Lamers 1997 es
 
 ax1.errorbar(t_lde['JD'], t_lde['Vmag'], yerr=V_sigma,
              fmt='o', color='red',ecolor='red',capsize=0 ,mew=2, elinewidth=2,ms=4)
-ax1.set_xlabel('MJD [days]')
-ax1.set_ylabel('V band [mag]')
+ax1.set_xlabel('MJD [days]',fontsize=16)
+ax1.set_ylabel('V band [mag]',fontsize=16)
 
 dt = 8. #half width of the figure plot
 ax1.set_ylim(3.86,3.78)
@@ -100,8 +117,7 @@ ax1.plot(t, m1981(t, t_mid, -V_1981_peak, V_mag_background, fwhm=3, depth=0.009)
 #### ax1.text(0.98, 0.95, runtime, ha='right', va='bottom', transform=ax1.transAxes, **tyb)
 
 plt.draw()
-plt.savefig('m1981model.pdf')
-plt.show()
+plt.savefig('figs/m1981model.pdf', bbox_inches='tight')
 
 print('finished writing out m1981model.pdf, now doing the modeling')
 
@@ -122,7 +138,6 @@ ax3.set_xlabel('Time [days]')
 ax3.set_ylabel('Relative intensity')
 ax3.set_title('1981 Eclipse function')
 ax3.text(0.98, 0.95, runtime, ha='right', va='bottom', transform=ax3.transAxes, **tyb)
-
 
 # basic lmfit from:
 # https://lmfit.github.io/lmfit-py/model.html
@@ -207,7 +222,6 @@ def fit_1981(t, f, ferr, t_test_epochs, t_window=8.0, min_npoints=9):
 # m1981 limit
 mlim = 0.035
 
-
 (tmabrite, amabrite, emabrite) = fit_1981(f_brite['time'], f_brite['flux'], f_brite['ferr'], t_in)
 (tmaastep, amaastep, emaastep) = fit_1981(f_astep['time'], f_astep['flux'], f_astep['ferr'], t_in)
 (tmabring, amabring, emabring) = fit_1981(f_bring['time'], f_bring['flux'], f_bring['ferr'], t_in)
@@ -239,7 +253,6 @@ ax[0].hlines(mlim, np.min(t_in), np.max(t_in), color='black', alpha=0.9, linesty
 ax[0].set_ylim(-0.006,0.064)
 ax[0].set_xlim(np.min(t_in),np.max(t_in))
 
-
 ax[0].tick_params(axis='x', which='major', labelsize=14)
 ax[1].tick_params(axis='x', which='major', labelsize=14)
 ax[1].hlines(mlim, np.min(t_in), np.max(t_in), color='black', alpha=0.9,linestyle='dotted')
@@ -268,7 +281,14 @@ bp.addhill(ax[1],bp.th,bottom=-1,height=2)
 
 ####ax[1].text(0.05, 0.90, runtime, ha='left', va='bottom', transform=ax[1].transAxes, **tyb)
 
+aa = fig5.add_subplot(111, frameon=False)
+# hide tick and tick label of the big axes
+plt.tick_params(labelcolor='none', top=False, bottom=False, left=False, right=False)
+plt.grid(False)
+
+plt.ylabel("a", fontsize=18)
+aa.yaxis.set_label_coords(-0.08, 0.5)
 
 plt.draw()
-plt.savefig('07_fit_to_1981_model.pdf')
+plt.savefig('figs/07_fit_to_1981_model.pdf', bbox_inches='tight')
 plt.show()
