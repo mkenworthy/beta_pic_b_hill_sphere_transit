@@ -1,7 +1,7 @@
 tar zcvf arxiv_20210210.tgz \
-    ms_2021-02-08_accepted.tex \
-    ms_2021-02-08_accepted.bbl \
-    authorlist.tex \
+    ms_accepted.tex \
+    ms_accepted.bbl \
+    authorlist_initials.tex \
     betapic_table.tex \
     figs/all_binned_photometry.pdf \
     figs/disk_sketch.jpg \
