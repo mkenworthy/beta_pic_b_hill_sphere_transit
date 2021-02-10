@@ -205,7 +205,7 @@ def plot_diskfit2(d, dataname, i_range, phi_range):
 
     plt.tight_layout()
     plt.draw()
-    plotout = ('figs/diskfit_{}_{:03d}.pdf'.format(dataname, np.int(f_hill*100)))
+    plotout = ('paper/figs/diskfit_{}_{:03d}.pdf'.format(dataname, np.int(f_hill*100)))
     plt.savefig(plotout)
 
 
@@ -293,7 +293,7 @@ def plot_disktaumass(tau, i_range, phi_range):
     plt.tight_layout()
 
     plt.draw()
-    plotout = ('figs/diskfit_taumass_{:03d}.pdf'.format(np.int(f_hill*100)))
+    plotout = ('paper/figs/diskfit_taumass_{:03d}.pdf'.format(np.int(f_hill*100)))
     plt.savefig(plotout)
 
 plot_disktaumass(upper_tau_max, i_range, phi_range)

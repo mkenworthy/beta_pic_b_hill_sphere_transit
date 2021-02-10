@@ -32,7 +32,7 @@ Output is:
 
 ### Remove outliers and rebin data
 
-     python 04_write_out_binned_flux.py
+     python 02_write_out_binned_flux.py
 
 Output is:
 
@@ -40,22 +40,18 @@ Output is:
        binned_flux_astep.dat
        binned_flux_brite.dat
 
-### Fit data with model of 1981 eclipse event
-
-     python 07_fit_1981_all_data_with_offset.py
-
-
 ### Fit a CPD disk to artificial data
 
 Generate example of fitting CPD orientation to artificial data set:
 
-     python 08_fit_tilted_thin_disk_model_chisq.py
-
+     python 03_fit_tilted_thin_disk_model_chisq.py
 
 ### Search for CPD disk in data
 
-     python 10_cpdfit_combined.py 0.30
-     python 10_cpdfit_combined.py 0.60
+     python 04_cpdfit_combined.py 0.30
+     python 04_cpdfit_combined.py 0.60
 
+### Fit data with model of 1981 eclipse event
 
+     python 05_fit_1981_all_data_with_offset.py
 

@@ -266,6 +266,6 @@ aa.xaxis.set_label_coords(0.4, -0.04)
 plt.ylabel(r'Inclination $ \theta $ [deg]', fontsize=16)
 aa.yaxis.set_label_coords(-0.08, 0.5)
     
-plt.savefig('figs/simdisk_b.pdf', bbox_inches='tight')
+plt.savefig('paper/figs/simdisk_b.pdf', bbox_inches='tight')
 
 plt.show()

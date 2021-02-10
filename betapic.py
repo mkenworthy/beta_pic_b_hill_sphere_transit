@@ -15,6 +15,11 @@ i_b = 88.82 * u.deg # Nielsen20
 P_b = 22.7 * u.yr # Nielsen20
 d_star = 19.450 * u.pc # nielsen20
 
+# Lagrange (2020)
+#
+# closest approach 2017 sept 13 = 58009
+# 2017 april 11 = 57854
+# 2018 feb 16 = 58165
 
 # table containing the Hill sphere transit events
 from astropy.table import Table
@@ -25,15 +30,6 @@ th['radius'] = ['100% ingress','50% ingress','mid','50% egress','100% egress']
 th.meta['comments'] = ['Beta Pic b Hill sphere transit times',
                        'ingress, 50 percent, closest approach, 50 percent, egress',
                        'times im MJD, errors are on each date']
-
-# Nielsen 2020
-#
-# closest approach 2017 sept 13 = 58009
-
-# 2017 april 11 = 57854
-# 2018 feb 16 = 58165
-
-
 
 def addhill(ax, th=th, bottom=-10,height=1000):
     'adds greyed rectangles in Axes with Hill sphere events'
@@ -48,9 +44,6 @@ def addhill(ax, th=th, bottom=-10,height=1000):
     ax.add_patch(rect100)
     ax.add_patch(rect50)
     ax.add_patch(rect0)
-
-
-
     
 ############################
 ## TESTING

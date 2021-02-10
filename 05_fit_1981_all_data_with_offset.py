@@ -118,7 +118,7 @@ ax1.plot(t, m1981(t, t_mid, -V_1981_peak, V_mag_background, fwhm=fwhm_lamers, de
 #### ax1.text(0.98, 0.95, runtime, ha='right', va='bottom', transform=ax1.transAxes, **tyb)
 
 plt.draw()
-plt.savefig('figs/m1981model.pdf', bbox_inches='tight')
+plt.savefig('paper/figs/m1981model.pdf', bbox_inches='tight')
 
 print('finished writing out m1981model.pdf, now doing the modeling')
 
@@ -297,5 +297,5 @@ plt.ylabel("a", fontsize=18)
 aa.yaxis.set_label_coords(-0.08, 0.5)
 
 plt.draw()
-plt.savefig('figs/07_fit_to_1981_model.pdf', bbox_inches='tight')
+plt.savefig('paper/figs/fit_to_1981_model.pdf', bbox_inches='tight')
 plt.show()
