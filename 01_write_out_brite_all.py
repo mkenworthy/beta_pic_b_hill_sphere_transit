@@ -2,10 +2,8 @@ from astropy.io import ascii
 from astropy.table import Table, vstack
 import numpy as np
 
-# K. Zwintz email 11-08-2020
-# BRITE residual light curves that I provided you with (and also the reduced and decorrelated light curves that still contain the pulsational signal) are in millimagnitudes with the mean magnitude subtracted.
+# BRITE residual light curves are in millimagnitudes with the mean magnitude subtracted.
 # The first column is HJD (mid exposure) - 2456000.0 in days.
-
 
 fname_out = 'brite_all.fits'
 

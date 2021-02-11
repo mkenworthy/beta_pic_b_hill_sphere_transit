@@ -1,3 +1,6 @@
 # HST photometry
 
-From Jason Wang
+Data reduction by Kevin Stevenson.
+
+Data files from Jason Wang.
+
