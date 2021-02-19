@@ -1,0 +1,179 @@
+% LaTeX-template for ExoPlanetNews abstract. v1.2 (Ocotber 2020)
+%
+% =============== Please PAY ATTENTION to the following GUIDELINES  ===============================================
+% -- avoid using hyperlinks, the newsletter template cannot yet handle the package "hyperref".
+% -- do not use any defined command
+% -- abstract: should occupy maximum one page of the pdf without figure. If the list of authors is too large for this, please cut the list of authors, add "et al." followed by "(a complete list of authors can be found on the publication)".
+% -- figure: attach it to the e-mail without large white margins. It should be one single pdf file per abstract.
+% -- please remember to comment the three lines mentioned below and the "end{document}" line prior to submission.
+% -- please remember to leave the extra ?{}? after the title with  "1st Author et al." inside.
+% ==================================================================================================
+
+%All lines beginning "%" are not processed or printed
+
+%------------------------------------------------------------------------------------------------------------
+% Remove the "%" from the following 3 lines to preview; please comment out these lines again prior to submission
+\documentclass{article}
+\usepackage{ep}
+\begin{document}
+%
+%------------------------------------------------------------------------------------------------------------
+%
+% Title of your paper and short author list (surnames only, no initials)
+% Use: 'Author1 et al.' if more than three authors
+\title{The $\beta$ Pictoris b Hill Sphere Transit Campaign. Paper I: Photometric limits to dust and rings}{Kenworthy et al.}
+% 
+%------------------------------------------------------------------------------------------------------------
+%
+% Author(s) of your paper (initials then surnames)
+% Use \inst{1} etc. for numbering of different institutes.
+%
+\author{M. A. Kenworthy\inst{1}, S. N.~Mellon\inst{2}, J. I. Bailey,~III\inst{3}, R. Stuik\inst{1,4}, P. Dorval\inst{1,4},
+G. J. J. Talens\inst{5}, S.~R.~Crawford\inst{6,7}, E.E.~Mamajek\inst{2,8},
+I.~Laginja\inst{9,10}, M.~Ireland\inst{11},
+B.~Lomberg\inst{6,12,13}, R.~B.~Kuhn\inst{6,14},
+I.~Snellen\inst{1}, K.~Zwintz\inst{15},
+R.~Kuschnig\inst{16}, G. M. Kennedy\inst{17,18},
+L. Abe\inst{19}, A. Agabi\inst{19},
+D. Mekarnia\inst{19},
+T. Guillot\inst{19},
+F. Schmider\inst{19},
+P. Stee\inst{19},
+Y.~de~Pra\inst{20,21},
+M.~Buttu\inst{20},
+N.~Crouzet\inst{22},
+P.~Kalas\inst{23,24,25},
+J.~J.~Wang\inst{26},
+K.~Stevenson\inst{27,28},
+E.~de~Mooij\inst{29,30},
+A.-M.~Lagrange\inst{31,32,33},
+S.~Lacour\inst{32},
+A.~Lecavelier~des~Etangs\inst{34},
+M. Nowak\inst{32,35},
+P.~A.~Str\o{}m\inst{17},
+Z.~Hui\inst{36},
+L.~Wang\inst{37}
+}
+
+\instlist{1}{Leiden Observatory, Leiden University, Postbus 9513, 2300 RA Leiden, The Netherlands}
+\instlist{2}{Department of Physics \& Astronomy, University of Rochester, Rochester, NY 14627, USA}
+\instlist{3}{Department of Physics, University of California at Santa Barbara, Santa Barbara, CA 93106, USA}
+\instlist{4}{NOVA Optical IR Instrumentation Group at ASTRON, PO Box 2, 7990AA Dwingeloo, The Netherlands}
+\instlist{5}{Institut de Recherche sur les Exoplan\`{e}tes, D\'{e}partement de Physique, Universit\'{e} de Montr\'{e}al, Montr\'{e}al, QC H3C 3J7, Canada}
+\instlist{6}{South African Astronomical Observatory, Observatory Rd, Observatory Cape Town, 7700 Cape Town, South Africa}
+\instlist{7}{NASA Headquarters, 300 E Street SW, Washington, DC 20546, USA}
+\instlist{8}{Jet Propulsion Laboratory, California Institute of Technology, 4800 Oak Grove Drive, M/S321-100, Pasadena, CA 91109, USA}
+\instlist{9}{DOTA, ONERA, Universit\'e Paris Saclay, F-92322 Ch\^{a}tillon, France}
+\instlist{10}{Aix Marseille Universit\'{e}, CNRS, LAM (Laboratoire d'Astrophysique de Marseille) UMR 7326, 13388 Marseille, France}
+\instlist{11}{Research School of Astronomy and Astrophysics, Australian National University, Canberra, ACT 2611, Australia}
+\instlist{12}{Department of Astronomy, University of Cape Town, Rondebosch, 7700 Cape Town, South Africa}
+\instlist{13}{Astrofica Technologies Pty Ltd, 2 Francis Road, Zonnebloem, Woodstock, Cape town, 7925, South Africa}
+\instlist{14}{Southern African Large Telescope, Observatory Rd, Observatory Cape Town, 7700 Cape Town, South Africa}
+\instlist{15}{Institut f\"ur Astro- und Teilchenphysik, Universit\"at Innsbruck, Technikerstra{\ss}e 25, A-6020 Innsbruck}
+\instlist{16}{Institut f\"ur Kommunikationsnetze und Satellitenkommunikation, Technical University Graz, Inffeldgasse 12, A-8010 Graz, Austria}
+\instlist{17}{Department of Physics, University of Warwick, Coventry CV4 7AL, UK}
+\instlist{18}{Centre for Exoplanets and Habitability, University of Warwick, Gibbet Hill Road, Coventry CV4 7AL, UK}
+\instlist{19}{Universit\'{e} C\^{o}te d'Azur, Observatoire de la C\^{o}te d'Azur, CNRS, Laboratoire Lagrange, France}
+\instlist{20}{Concordia Station, IPEV/PNRA, Dome C, Antarctica}
+\instlist{21}{Department of Mathematics, Computer Science and Physics, University of Udine, Italy}
+\instlist{22}{European Space Agency (ESA), European Space Research and Technology Centre (ESTEC), Keplerlaan 1, 2201 AZ Noordwijk, The Netherlands}
+\instlist{23}{Astronomy Department, University of California, Berkeley, CA 94720, USA}
+\instlist{24}{SETI Institute, Carl Sagan Center, 189 Bernardo Ave.,  Mountain View CA 94043, USA}
+\instlist{25}{Institute of Astrophysics, FORTH, GR-71110 Heraklion, Greece}
+\instlist{26}{Department of Astronomy, California Institute of Technology, Pasadena, CA 91125, USA}
+\instlist{27}{Space Telescope Science Institute, Baltimore, MD 21218, USA}
+\instlist{28}{JHU Applied Physics Laboratory, 11100 Johns Hopkins Rd, Laurel, MD 20723, USA}
+\instlist{29}{Astrophysics Research Centre, Queen’s University Belfast, Belfast BT7 1NN, UK}
+\instlist{30}{School of Physical Sciences and Centre for Astrophysics \& Relativity, Dublin City University, Glasnevin, Dublin 9, Ireland}
+\instlist{31}{IPAG, Univ. Grenoble Alpes, CNRS, IPAG, F-38000 Grenoble, France}
+\instlist{32}{LESIA, Observatoire de Paris, Universit\'{e} PSL, CNRS, Sorbonne Universit\'{e}, Universit\'{e} de Paris, 5 place Jules Janssen, 92195 Meudon, France}
+\instlist{33}{IMCCE - Observatoire de Paris, 77 Avenue Denfert-Rochereau, F-75014 PARIS}
+\instlist{34}{Institut d’Astrophysique de Paris, UMR7095 CNRS, Universit\'{e} Pierre \& Marie Curie, 98 bis boulevard Arago, 75014 Paris, France}
+\instlist{35}{Institute of Astronomy, Madingley Road, Cambridge CB3 0HA, UK}
+\instlist{36}{Shanghai Observatory, Chinese Academy of Sciences, China}
+\instlist{37}{Purple Mountain Observatory, Chinese Academy of Science, Nanjing 210008, China}
+
+%------------------------------------------------------------------------------------------------------------
+%
+% Status of your paper. 
+%First Argument: The journal where it will appear.
+% Second Argument. The state - should be one of: "in press" or "published".
+%
+% If it is already published, please provide us with the ADS-Bibcode,
+% otherwise give the arXiv preprint code in the style: "arXiv:nnnn.mmmm"
+%
+\status{\aa}{accepted/2102.05672}
+%
+% or for CONFERENCES use the style:
+% \status{Location of Conference}{Dates of Conference}
+%
+% or for JOB ADVERTS use the style:
+% \status{Location of Post}{Job start date}
+%
+% or for MISCELLANEOUS ANNOUNCEMENTS use the style:
+% \status{Location of Announcement}{Relevant date for announcement}
+%
+% You should use the following abbreviations:
+% \mnras   Monthly Notices of the Royal Astronomical Society
+% \aj      Astronomical Journal
+% \apj     Astrophysical Journal
+% \apjl    Astrophysical Journal Letters
+% \aa      Astronomy \& Astrophysics
+% \aal     Astronomy \& Astrophysics Letters
+% \pasp    Publications of the Astronomical Society of the Pacific
+% \aas     American Astronomical Society Meeting
+% \pasj    Publications of the Astronomical Society of Japan
+%
+%
+%-----------------------------------------------------------------------------------------------------------
+%
+% The abstract body
+%
+\abstract{
+
+    Photometric monitoring of Beta Pictoris in 1981 showed anomalous fluctuations of up to 4\% over several days, consistent with foreground material transiting the stellar disk.
+    %
+    The subsequent discovery of the gas giant planet Beta Pictoris b and the predicted transit of its Hill sphere to within 0.1\,au projected separation of the planet provided an opportunity to search for the transit of a circumplanetary disk in this 21\,$\pm$\,4 Myr-old planetary system. 
+   %
+We aim to detect or put an upper limit of the density and nature of the material in the circumplanetary environment of the planet through continuous photometric monitoring of the Hill sphere transit in 2017 and 2018.
+
+  % methods heading (mandatory)
+ Continuous broadband photometric monitoring of Beta Pictoris requires ground-based observatories at multiple longitudes to provide redundancy and to provide triggers for rapid spectroscopic followup. 
+   %
+   These observatories include the dedicated Beta Pictoris monitoring observatory bRing at Sutherland and Siding Springs, the ASTEP400 telescope at Concordia, and observations 
+   from the space observatories BRITE and Hubble Space Telescope.
+   %
+   We search the combined light curves for evidence of short period transient events caused by rings and for longer term photometric variability due to diffuse circumplanetary material.
+  % results heading (mandatory)
+We find no photometric event that matches with the event seen in November 1981, and there is no systematic photometric dimming of the star as a function of the Hill sphere radius.
+  % conclusions heading (optional), leave it empty if necessary 
+We conclude that the 1981 event was not caused by the transit of a circumplanetary disk around Beta Pictoris b.
+   %
+   The upper limit on the long term variability of Beta Pictoris places an upper limit of $1.8\times 10^{22}$ g of dust within the Hill sphere (comparable to the $\sim$100\,km-radius asteroid 16 Psyche). 
+   %
+   Circumplanetary material is either condensed into a disk that does not transit Beta Pictoris, is condensed into a disk with moons that has an obliquity that does not intersect with the path of Beta Pictoris behind the Hill sphere, or is below our detection threshold.
+   %
+   This is the first time that a dedicated international campaign has mapped the Hill sphere transit of a gas giant extrasolar planet at 10\,au.
+}
+%
+% Optional Figure caption: (just paste in here - it will be typeset separately)
+%
+% Beta Pictoris b circumplanetary disk models for $r=0.30r_{Hill}$ and $r=0.60r_{Hill}$ radii. The upper row shows the measured optical depth corrected for disk inclination, and the lower panel shows the upper limit on the total mass of the disk assuming mean particle sizes of 16.4 microns and 23.2 microns.
+%
+%------------------------------------------------------------------------------------------------------------
+%
+% Download: Website with the preprint and/or additional information/data (CHANGE this from the current value)
+%
+\download{https://arxiv.org/abs/2102.05672}
+%
+% Contact: E-Mail of the responsible person (CHANGE this from the current value)
+%
+\contact{kenworthy@strw.leidenuniv.nl}
+%
+%------------------------------------------------------------------------------------------------------------
+%
+% Remove the "%" from the next line to preview; comment it out again before submission
+%
+% \end{document}
+%
+%------------------------------------------------------------------------------------------------------------
