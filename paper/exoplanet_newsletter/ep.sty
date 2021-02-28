@@ -1,0 +1,137 @@
+\renewcommand{\title}[2]{
+\begin{center}%\rule{1cm}{0.8mm}\quad
+\textsf{\textbf{\large
+#1}}
+%\quad\rule{1cm}{0.8mm}
+\end{center}
+
+\vspace{-8pt}
+\addtocontents{toc}{\protect\contentsline{subsection}{\protect\numberline{--}\!\!\!\!\!\!\!#1\;\;{\emph{#2}}}{\thepage}}}
+\renewcommand{\author}[1]{
+
+\nopagebreak[4]
+\vspace{2mm}
+\emph{#1}
+
+\vspace{3pt}
+}
+\newcommand{\inst}[1]{$^{#1}$}
+\newcommand{\instlist}[2]{
+
+\nopagebreak[4]
+\vspace{-3pt}
+{\footnotesize $^{#1}$~#2}
+}
+\newcommand{\institute}[1]{
+
+\nopagebreak[4]
+\vspace{-3pt}
+{\footnotesize #1}
+}
+\newcommand{\status}[2]{
+
+\nopagebreak[4]
+\vspace{-2mm}\begin{flushright}
+
+\nopagebreak[4]
+\emph{#1, #2}
+
+\nopagebreak[4]
+\end{flushright}
+}
+\newcommand{\contact}[1]{
+
+\smallskip
+\emph{Contact: {\tt #1}}
+
+%\hfill\rule{5cm}{0.8mm}
+
+\vspace{0.4cm}}
+\newcommand{\download}[1]{
+
+\smallskip
+\emph{Download/Website: {\tt #1}}
+}
+\renewcommand{\abstract}[1]{#1}
+\renewcommand{\titlepage}[1]{
+\vspace{-1cm}
+\thispagestyle{empty}
+\rule{5.5cm}{1mm}
+
+\vspace{0.3cm}
+{\sf{\huge ExoPlanet News\hfill{\Large\emph{#1}}}\\
+{\large An Electronic Newsletter}}
+
+\vspace{-5mm}
+\begin{flushright}
+{\sf Editors:  
+S.~P. Quanz (Editor-in-Chief), Y. Alibert, A. Leleu, C. Mordasini\\
+{\small PlanetS}\\
+\medskip
+exoplanetnews@nccr-planets.ch, 
+http://nccr-planets.ch/\\}
+\rule{11.5cm}{1mm}
+
+\end{flushright}
+
+%\vspace{-10mm}
+\selectlanguage{english}
+\tableofcontents
+
+}
+
+
+\newcommand{\kms}{\mbox{$km \ s^{-1}$ \ }} 
+\newcommand{\Msun}{\mbox{M$_{\odot}$}}
+\newcommand{\Rsun}{\mbox{R$_{\odot}$}}
+\newcommand{\Lsun}{\mbox{L$_{\odot}$}}
+% Define commands for `less than or approximately equal to' \ltsimeq
+%                     `greater than or approximately equal to' \gtsimeq
+\newcommand{\ltsimeq}{\raisebox{-0.6ex}{$\,\stackrel
+        {\raisebox{-.2ex}{$\textstyle <$}}{\sim}\,$}}
+\newcommand{\gtsimeq}{\raisebox{-0.6ex}{$\,\stackrel
+        {\raisebox{-.2ex}{$\textstyle >$}}{\sim}\,$}}
+\newcommand{\prpsimeq}{\raisebox{-0.6ex}{$\,\stackrel
+        {\raisebox{-.2ex}{$\textstyle \propto $}}{\sim}\,$}}
+
+
+\newcommand{\Ion}[2]{#1{\sc #2}}
+\newcommand{\ion}[2]{#1{\sc #2}}
+\newcommand{\Line}[3]{\ion{#1}{#2}\,$\lambda$\,#3}
+\newcommand{\Lines}[3]{\ion{#1}{#2}\,$\lambda\lambda$\,#3}
+\renewcommand{\vec}[1]{\pmb{#1}}
+\newcommand{\Porb}{\mbox{$P_{\mathrm{orb}}$}}
+\newcommand{\astroph}[3]{\item \textrm{astro-ph/#1:} \textbf{#2}~~by \textit{#3}}
+
+\setlength{\hoffset}{-15pt} % make borders from left and top 2cm
+\setlength{\voffset}{-15pt}
+
+\setlength{\oddsidemargin}{20pt}
+\setlength{\textwidth}{460pt}
+\setlength{\marginparsep}{10pt}
+\setlength{\marginparwidth}{20pt}
+
+%\setlength{\topmargin}{30pt}
+\setlength{\topmargin}{25pt}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{25pt}
+%\setlength{\footskip}{30pt}
+\setlength{\footskip}{25pt}
+%\setlength{\textheight}{584pt}
+\setlength{\textheight}{594pt}
+
+
+\pagestyle{headings}
+\sloppy
+\frenchspacing
+\parindent0pt
+
+\def\mnras{Monthly Notices of the Royal Astronomical Society}
+\def\aj{The Astronomical Journal}
+\def\apj{The Astrophysical Journal}
+\def\apjl{Astrophysical Journal Letters}
+\def\aa{Astronomy \& Astrophysics}
+\def\aal{Astronomy \& Astrophysics Letters}
+\def\pasp{Publications of the Astronomical Society of the Pacific}
+\def\aas{American Astronomical Society Meeting}
+\def\pasj{Publications of the Astronomical Society of Japan}
